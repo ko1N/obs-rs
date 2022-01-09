@@ -49,11 +49,16 @@ impl Event {
 
     /// Checks whether the event is signalled.
     pub fn signalled(&self) -> Option<()> {
-        unsafe { WaitForSingleObject(self.handle as _, 0) == WAIT_OBJECT_0 }.then_some(())
+        match unsafe { WaitForSingleObject(self.handle as _, 0) } {
+            WAIT_OBJECT_0 => Some(()),
+            _ => None,
+        }
     }
 
     /// Returns the internal handle
-    pub fn handle(&self) -> usize { self.handle }
+    pub fn handle(&self) -> usize {
+        self.handle
+    }
 }
 
 impl Drop for Event {

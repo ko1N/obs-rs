@@ -36,7 +36,9 @@ pub struct NamedPipe {
 }
 
 impl NamedPipe {
-    fn create_events() -> Option<Event> { Event::create(None) }
+    fn create_events() -> Option<Event> {
+        Event::create(None)
+    }
 
     fn create_full_access_security_descriptor() -> Option<SECURITY_DESCRIPTOR> {
         let mut sd = MaybeUninit::<SECURITY_DESCRIPTOR>::uninit();
@@ -95,7 +97,9 @@ impl NamedPipe {
         }
     }
 
-    fn io_pending() -> bool { unsafe { GetLastError() == ERROR_IO_PENDING } }
+    fn io_pending() -> bool {
+        unsafe { GetLastError() == ERROR_IO_PENDING }
+    }
 
     pub fn create<S: AsRef<str>>(name: S) -> Option<Self> {
         let ready_event = Self::create_events()?;
@@ -166,7 +170,7 @@ impl NamedPipe {
                 // Print the log
                 //
                 if success {
-                    match std::ffi::CString::from_vec_with_nul(buffer[..bytes as _].to_vec()) {
+                    match String::from_utf8(buffer[..bytes as _].to_vec()) {
                         Ok(data) => log::info!("[pipe] {:?}", data),
                         Err(error) => log::error!("Failed to convert buffer to string ({:?})", error),
                     }

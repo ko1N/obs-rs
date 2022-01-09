@@ -6,7 +6,7 @@ fn main() {
         .init()
         .unwrap();
 
-    let mut capture = Capture::new("Rainbow Six");
+    let mut capture = Capture::new("Enter the Gungeon");
     if capture.try_launch().is_err() {
         println!("Failed to launch the capture");
         return;

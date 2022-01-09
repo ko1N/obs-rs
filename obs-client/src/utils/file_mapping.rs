@@ -48,11 +48,15 @@ impl<T> FileMapping<T> {
 impl<T> Deref for FileMapping<T> {
     type Target = *mut T;
 
-    fn deref(&self) -> &Self::Target { &(self.file_mapping) }
+    fn deref(&self) -> &Self::Target {
+        &(self.file_mapping)
+    }
 }
 
 impl<T> DerefMut for FileMapping<T> {
-    fn deref_mut(&mut self) -> &mut Self::Target { &mut (self.file_mapping) }
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut (self.file_mapping)
+    }
 }
 
 impl<T> Drop for FileMapping<T> {
